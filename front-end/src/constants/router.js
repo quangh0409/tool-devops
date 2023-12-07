@@ -1,5 +1,7 @@
 export const ROUTE = {
-  ADMIN: "/admin",
-  SIGNIN: "/",
+  HOME: "/",
+  SIGNIN: "/signin",
   SIGNUP: "/signup",
+  TEMPLATE: "/template",
+  TEMPLATEDETAIL: "/template/:id",
 };
