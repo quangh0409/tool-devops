@@ -1,23 +1,40 @@
 import React from "react";
 import { ROUTE } from "../constants/router";
 import SignInPage from "../pages/SignInPage";
-import SignUpPage from "../pages/SignUpPage";
 import { Routes, Route } from "react-router-dom";
 import HomePage from "../pages/HomePage";
+import BaseLayout from "../components/BaseLayout";
+import TemplatePage from "../pages/TemplatePage";
+import TemplateDetailPage from "../pages/TemplateDetailPage";
 
 export default function AppRouter() {
   const routes = [
     { path: ROUTE.HOME, element: HomePage },
     { path: ROUTE.SIGNIN, element: SignInPage },
-    { path: ROUTE.SIGNUP, element: SignUpPage },
+    { path: ROUTE.TEMPLATE, element: TemplatePage },
+    { path: ROUTE.TEMPLATEDETAIL, element: TemplateDetailPage },
   ];
   return (
     <Routes>
       {routes.map((route) => {
         const { element: Component } = route;
-        return (
-          <Route key={route.path} {...route} element={<Component />}></Route>
-        );
+        if (route.path === "/") {
+          return (
+            <Route key={route.path} {...route} element={<Component />}></Route>
+          );
+        } else {
+          return (
+            <Route
+              key={route.path}
+              {...route}
+              element={
+                <BaseLayout>
+                  <Component />
+                </BaseLayout>
+              }
+            ></Route>
+          );
+        }
       })}
     </Routes>
   );

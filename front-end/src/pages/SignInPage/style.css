@@ -1,0 +1,6 @@
+.bgSignIn{
+    background-image: url('./signin.svg');
+    background-size: cover;
+    background-position: center;
+
+}
