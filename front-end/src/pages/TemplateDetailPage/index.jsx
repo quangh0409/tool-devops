@@ -1,26 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button } from "antd";
 import axiosClient from "../../apis/axiosClient";
-import MarkdownIt from "markdown-it";
+import "./style.css";
+import Editor from "./textCustomer";
 
 export default function TemplateDetailPage() {
   const name = useParams().tab;
-  const mdParser = new MarkdownIt({
-    html: true,
-  });
-  const [description, setDescription] = useState();
-  const descript = async () => {
-    const res = await axiosClient.post("/v1/in/tool-checks/trivy", {
-      content: "vutrongquang/mail",
-    });
-    if (res) {
-      setDescription(res.data.description);
-    }
-  };
-  useEffect(() => {
-    descript();
-  }, []);
+  // const descript = async () => {
+  //   const res = await axiosClient.post("/v1/in/tool-checks/trivy", {
+  //     content: "vutrongquang/mail",
+  //   });
+  //   if (res) {
+  //     // setDescription(res.data.description);
+  //   }
+  // };
+  // useEffect(() => {
+  //   descript();
+  // }, []);
   return (
     <div className="max-w-7xl mx-auto pt-10 w-full">
       <div className="flex justify-between mb-6">
@@ -41,11 +38,20 @@ export default function TemplateDetailPage() {
         </div>
         <div className="grid grid-cols-3 mt-3  gap-7">
           <div className="col-span-2 border rounded-lg">
-            <div
-              dangerouslySetInnerHTML={{
-                __html: mdParser.render(description),
+            {/* <div
+              id="editor"
+              ref={editorRef}
+              onKeyUp={handleKeyUp}
+              class="editor"
+              spellcheck="false"
+              contenteditable="true"
+              style={{
+                border: "1px solid #ccc",
+                minHeight: "100px",
+                padding: "8px",
               }}
-            />
+            ></div> */}
+            <Editor/>
           </div>
           <div className="col-span-1 border rounded-lg "></div>
         </div>

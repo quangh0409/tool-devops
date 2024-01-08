@@ -1,11 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./style.css";
 import { Button, Checkbox, Form, Input } from "antd";
+import { login } from "../../apis/axiosInfo";
 
 export default function SignInPage() {
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
   const navigate = useNavigate();
   const handleSignUp = () => {
+    login(email, password);
     navigate("/home");
   };
   return (
@@ -19,14 +24,27 @@ export default function SignInPage() {
               name="email"
               rules={[{ required: true, message: "Vui lòng nhập email" }]}
             >
-              <Input size="large" type="text" placeholder="Email" />
+              <Input
+                size="large"
+                type="text"
+                placeholder="Email"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
             </Form.Item>
             <Form.Item
               label="Password"
               name="password"
               rules={[{ required: true, message: "Vui lòng nhập password" }]}
             >
-              <Input.Password size="large" placeholder="Password" />
+              <Input.Password
+                size="large"
+                placeholder="Password"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
             </Form.Item>
             <div className="flex justify-between mb-2">
               <Checkbox>Remember me</Checkbox>
