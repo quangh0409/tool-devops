@@ -7,6 +7,25 @@
   counter-reset: lineNumber;
   white-space: pre-wrap;
 }
+.editor {
+  height: 500px;
+  padding: 0px;
+  color: rgb(0, 0, 0);
+  font-size: 12px;
+  font-family: monospace;
+  counter-reset: lineNumber;
+  white-space: pre-wrap;
+  flex: 1;
+ }
+
+.line-numbers {
+  white-space: pre-wrap;
+  text-align: right;
+  padding:0 10px 0 0;
+  font-size: 12px;
+  font-family: monospace; /* Spacing between line numbers and text */
+  /* Style to visually match the textarea */
+}
 
 #editor::before {
   content: counter(lineNumber);
