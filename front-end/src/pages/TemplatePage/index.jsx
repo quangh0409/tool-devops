@@ -10,15 +10,18 @@ export default function TemplatePage() {
   const path = useParams().id;
   useEffect(() => {
     const fetch = async () => {
-      const res = await getTemplateByType("DOCKERFILE");
-
-      setDatas(res);
+      const res = await getTemplateByType(
+        path === "pipeline" ? "DOCKERFILE" : "WORKFLOW"
+      );
+      let temp = res;
+      setDatas(temp);
     };
 
     fetch();
 
     setTitle(path);
-  }, [path]);
+  }, [path, title]);
+  console.log(title === "pipeline");
   return (
     <div className="max-w-7xl mx-auto pt-10 w-full">
       <div className="flex justify-between items-center">

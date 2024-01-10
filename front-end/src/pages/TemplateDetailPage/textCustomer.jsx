@@ -1,20 +1,56 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./style.css";
+import axios from "axios";
+import { getContentFile } from "../../apis/axiosInfo";
 
 const Editor = () => {
+  const [content, setContent] = useState("");
+  const fileId = "18s68ftSwshrxiDWarW16Lh-eaHGPhOMO";
 
-  
+  const fetchContentFile = async () => {
+    const res = await getContentFile(fileId);
+    const editor = document.getElementById("editor");
+    console.log(
+      "🚀 ~ file: textCustomer.jsx:13 ~ fetchContentFile ~ editor:",
+      editor.innerText
+    );
+    if (!editor.innerText) {
+      editor.innerText = res.content;
+      const coloredText = editor.innerText.replace(
+        /(FROM|ARG|RUN|WORKDIR|COPY|CMD|ENV)/g,
+        '<span class="statement">$1</span>'
+      );
+      editor.innerHTML = coloredText;
+    }
+    setContent(res.content);
+  };
+
+  const placeCaretAtEnd = (el) => {
+    el.focus();
+    const range = document.createRange();
+    range.selectNodeContents(el);
+    range.collapse(false);
+    const sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+  };
 
   const editorRef = useRef(null);
   useEffect(() => {
+    fetchContentFile();
     const handleInput = (event) => {
-      const text = event.target.innerText;
+      let text = event.target.innerText;
+      console.log(
+        "🚀 ~ file: textCustomer.jsx:22 ~ handleInput ~ text:",
+        typeof text
+      );
+      // text = text !== null ? text : content;
       const coloredText = text.replace(
-        /(var|let|const)/g,
+        /(FROM|let|const)/g,
         '<span class="statement">$1</span>'
       );
       event.target.innerHTML = coloredText;
-      const lines = text.split("\n"); 
+      const lines = text.split("\n");
       const wordsInLines = lines.map((line) => line.split(/\s+/)); // Tách từng dòng thành mảng các từ
       console.log(wordsInLines);
       placeCaretAtEnd(event.target);
@@ -36,16 +72,15 @@ const Editor = () => {
       }
     };
 
-    const placeCaretAtEnd = (el) => {
-      el.focus();
-      const range = document.createRange();
-      range.selectNodeContents(el);
-      range.collapse(false);
-      const sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
-    };
-
+    // const placeCaretAtEnd = (el) => {
+    //   el.focus();
+    //   const range = document.createRange();
+    //   range.selectNodeContents(el);
+    //   range.collapse(false);
+    //   const sel = window.getSelection();
+    //   sel.removeAllRanges();
+    //   sel.addRange(range);
+    // };
 
     const editor = document.getElementById("editor");
     editor.addEventListener("input", handleInput);
@@ -60,14 +95,13 @@ const Editor = () => {
 
   return (
     <div
-    ref={editorRef}
+      ref={editorRef}
       id="editor"
       className="editor"
       spellCheck="false"
       contentEditable="true"
       style={{
         border: "1px solid #ccc",
-        minHeight: "100px",
         padding: "8px",
         whiteSpace: "pre-wrap", // Allow wrapping within words
       }}

@@ -4,4 +4,5 @@ export const ROUTE = {
   SIGNUP: "/signup",
   TEMPLATE: "/template/:id",
   TEMPLATEDETAIL: "/templatedetail/:tab/:id",
+  SCAN:"/scan"
 };

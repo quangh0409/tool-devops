@@ -1,16 +1,16 @@
 #editor {
-  height: 500px;
+  min-height: 660px;
   padding: 0px;
   color: rgb(0, 0, 0);
   font-size: 12px;
   font-family: monospace;
-  counter-reset: lineNumber;
+  /* counter-reset: lineNumber; */
   white-space: pre-wrap;
 }
 
 #editor::before {
-  content: counter(lineNumber);
-  counter-increment: lineNumber;
+  /* content: counter(lineNumber); */
+  /* counter-increment: lineNumber; */
   display: inline-block;
   width: 0px; /* Adjust the width as needed */
   text-align: right; /* Align line numbers to the right */
@@ -23,7 +23,6 @@
 
 body{
   margin:0;
-  overflow: hidden;
 }
 .code-editor-container{
   overflow: hidden;
