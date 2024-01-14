@@ -1,4 +1,4 @@
-FROM node:lts AS development
+FROM node:18-alpine AS development
 
 ENV CI=true
 ENV PORT=3000
